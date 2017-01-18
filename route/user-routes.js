@@ -25,22 +25,24 @@ router.route('/test/remove/:email')
  *  Endpont: /register
  *  POST:
  *    {
- *
+ *      username
+ *      password
+ *      email
+ *      securityQuestion
+ *      securityAnswer
  *    }
  */
 router.route('/register')
   .post(controller.register);
 
-  /**
- * Retrieves simple single element info on a specific user, subject to privacy
+/**
+ *  General call for single element properties of a user subject to privacy
+ *  and/or authentication permissions
  *  GET:
  *    Q-String: ?username=1&firstname=0&permission=1
- *  Note:
- *     on info properties that are arrays, a set limit will be returned
- *     if no amount is specified
  */
-// router.route('/info/:email')
-//   .get(controller.getInfo)
+ router.route('/info/:email')
+   .get(controller.getInfo)
 
 //
 // /**

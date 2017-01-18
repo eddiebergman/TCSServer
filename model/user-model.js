@@ -29,62 +29,38 @@ var UserSchema = new Schema({
 
   permission: { type: Number, required: true, min: 0, max: permissions.admin, default: permissions.unverified},
 
-  personalInfo: {
-    firstName : {type: String},
-    lastName  : {type: String},
-    age       : {type: Number}
-  },
+  firstName : {type: String},
+  lastName  : {type: String},
+  age       : {type: Number},
 
-  profilePicPath: {type: String},
+  picURL: {type: String},
 
-  security : {
-    question : {type: String, required: true},
-    answer   : {type: String, required: true},
-  },
+  securityQuestion : {type: String, required: true},
+  securityAnswer   : {type: String, required: true},
 
-  verificationToken :{type: String, unqiue: true},
+
+  // verificationToken :{type: String, unqiue: true},
 
   //Password Reset, if one exists, there must be expiration and token
-  passwordReset : {
-    expires : {type : String, required: true},
-    token   : {type : String, required: true}
-  },
+  // passwordReset : {
+  //   expires : {type : String, required: true},
+  //   token   : {type : String, required: true}
+  // },
 
   //friend info
-  friends:    [{
-    id        : {type: Schema.Types.ObjectId, required: true},
-    username  : {type: String, required: true},
-    email     : {type: String, required: true}
-  }],
+  // friends:    [{
+  //   id        : {type: Schema.Types.ObjectId, required: true},
+  //   username  : {type: String, required: true},
+  //   email     : {type: String, required: true}
+  // }],
 
-  friendRequests: [{
-    date      : {type: Date, required:true},
-    requestee : {type: String, required:true},
-    requester : {type: String, required:true},
-    isAccepted: {type: Boolean, required:true}
-  }],
-
-  rivalries:  [{type: Schema.Types.ObjectId}],
-
-  //game info
-  leagues:    [{type: Schema.Types.ObjectId}],
-
-  favourites: [{type: Schema.Types.ObjectId}],
-  created:    [{type: Schema.Types.ObjectId}],
-
-  highscores: [{
-    gameId :    {type: Schema.Types.ObjectId, required: true},
-    leagueId:   {type: Schema.Types.ObjectId, required: true},
-    score:      {type: Number, required: true},
-    date:       {type: Date, required: true}
-  }],
-
-  events: [{type: Schema.Types.ObjectId}],
-
-  notifications:  [{
-    body:       {type: String, required: true},
-    date:       {type: Date, required: true}
-  }]
+  //
+  // friendRequests: [{
+  //   date      : {type: Date, required:true},
+  //   requestee : {type: String, required:true},
+  //   requester : {type: String, required:true},
+  //   isAccepted: {type: Boolean, required:true}
+  // }],
 
 });
 
@@ -188,6 +164,7 @@ UserSchema.statics.destroy = destroy;
 
 /**
  * Can only be referenced from a user object, updates all users user[key] with updates[key]
+ * Retrieves the object from the database so verification can be done on fields
  * Params:
  *  updates - JSON object of all updatse to apply, errors if does not exist
  * Callback

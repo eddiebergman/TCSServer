@@ -24,13 +24,11 @@ function register(req, res){
   }
 
   var user = {
-    username : req.body.username,
-    password : req.body.password,
-    email    : req.body.email,
-    security : {
-      question  : req.body.securityQuestion,
-      answer    : req.body.securityAnswer  
-    }
+    username          : req.body.username,
+    password          : req.body.password,
+    email             : req.body.email,
+    securityQuestion  : req.body.securityQuestion,
+    securityAnswer    : req.body.securityAnswer
   }
 
   User.create(user , handle);
@@ -74,6 +72,7 @@ function getInfo(req, res){
 //===================================================
 
 module.exports = {
-  register : register,
-  remove : remove
+  register  : register,
+  remove    : remove,
+  getInfo   : getInfo
 }
