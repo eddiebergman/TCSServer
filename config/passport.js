@@ -7,7 +7,7 @@ var LocalStrategy       = require('passport-local').Strategy;
 //===================================================
 // User Model
 //===================================================
-var User                = require('../model/user-model.js').model;
+var User                = require('../model/user-model.js');
 
 //===================================================
 // Strategy
@@ -19,21 +19,17 @@ var options = {
   session: true
 }
 
-function authneticate(email, password, done){
+function authenticate(email, password, done){
   User.findOne( { 'email' : email} )
   .exec(function(err , user) {
-
-    if (err) return done(err);
-    if (!user) return done(null, false);
-
-    if (!user.verifyPassword(password))
-    return done(null , false);
-
+    if (err)                            return done(err);
+    if (!user)                          return done(null, false);
+    if (!user.verifyPassword(password)) return done(null , false);
     return done(null , user);
   });
 }
 
-passport.use(new LocalStrategy(options, authneticate));
+passport.use(new LocalStrategy(options, authenticate));
 
 //===================================================
 // Serialize / Deserialize

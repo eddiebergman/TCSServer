@@ -16,15 +16,17 @@ var passport              = require('passport');
  *    200 : login succesfull
  */
 function login(req, res){
-  
-  if(req.isAuthenticated())
+
+  if(req.isAuthenticated()){
     return res.set(200).send("You have are already logged in");
+  }
 
   passport.authenticate('local', handleAuthentication)(req, res);
 
   function handleAuthentication(err, user, info){
+    console.log(err);
     if(err)   return res.set(500).send(err);
-    if(!user) return res.set(404).send("Login Failed");
+    if(!user) return res.set(404).send("No matching email and password found"); //TODO TEMP 404 and error message
     req.login(user, handleLogin);
   }
 

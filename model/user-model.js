@@ -36,7 +36,7 @@ var UserSchema = new Schema({
   picURL: {type: String},
 
   securityQuestion : {type: String, required: true},
-  securityAnswer   : {type: String, required: true},
+  securityAnswer   : {type: String, required: true}
 
 
   // verificationToken :{type: String, unqiue: true},
@@ -121,7 +121,6 @@ function create(userData, callback){
     if(UserSchema.paths.hasOwnProperty(property)){
       user[property] = userData[property];
     } else {
-      console.log(UserSchema.paths);
       var err = new Error("User Schema has no property : " + property);
       return callback(err);
     }
@@ -145,13 +144,15 @@ UserSchema.statics.create = create;
  *  message - message of success
  */
 function destroy(keyValuePair, callback){
-
-  if(!keyValuePair.hasOwnProperty('id') && !keyValuePair.hasOwnProperty('email'))
+  if( !(keyValuePair.hasOwnProperty('id') || keyValuePair.hasOwnProperty('email')) ){
     return callback(new Error("Invalid key for retrieving user to remove"));
+  }
+
 
   User
     .findOneAndRemove(keyValuePair , function(err , result){
       if(err) return callback(err);
+      if(!result) return callback(null, "No match found")
       return callback(null, result);
     })
 }

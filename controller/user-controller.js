@@ -16,8 +16,15 @@ var User            = require('../model/user-model');
  */
 function register(req, res){
 
-  var expectedKeys = ['username','password','email','securityQuestion','securityAnswer'];
+  var expectedKeys = [
+    'username',
+    'password',
+    'email',
+    'securityQuestion',
+    'securityAnswer'
+  ];
 
+//TODO make this append them all and then send
   for(var key in expectedKeys){
     if(!req.body.hasOwnProperty(expectedKeys[key]))
       return res.set(400).send("Must provide " + expectedKeys[key]);
@@ -31,9 +38,9 @@ function register(req, res){
     securityAnswer    : req.body.securityAnswer
   }
 
-  User.create(user , handle);
+  User.create(user , callback);
 
-  function handle(err, user){
+  function callback(err, user){
     if(err) return res.set(400).send(err.message);
     return res.set(200).send(user);
   }
@@ -50,15 +57,24 @@ function register(req, res){
 function remove(req, res){
 
   var emailValue = req.params.email;
-  User.destroy({ email : emailValue }, handle);
+  User.destroy({ 'email' : emailValue }, callback);
 
-  function handle(err , message){
+  //TODO remove the user from session if logged in
+
+  function callback(err , message){
     if(err) return res.set(500).send(err);
     return res.set(200).send(message);
   }
 
 }
 
+
+/**
+ * Returns simple single element info of a user based on
+ * query string
+ *  HTTP Codes:
+ *
+ */
 function getInfo(req, res){
 
 
