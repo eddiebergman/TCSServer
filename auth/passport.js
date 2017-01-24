@@ -7,12 +7,11 @@ var LocalStrategy       = require('passport-local').Strategy;
 //===================================================
 // User Model
 //===================================================
-var User                = require('../model/user-model.js');
+var User                = require('../user').model;
 
 //===================================================
 // Strategy
 //===================================================
-
 var options = {
   usernameField: 'email',
   passwordField: 'password',
@@ -34,18 +33,21 @@ passport.use(new LocalStrategy(options, authenticate));
 //===================================================
 // Serialize / Deserialize
 //===================================================
+
+
 passport.serializeUser( function(user,callback) {
 
-  var store = {
-    id : user.id,
+  var sessionUser = {
+    _id : user._id,
+    email : user.email,
+    username : user.username,
     permission : user.permission
   }
-
-  callback(null , store);
+  callback(null , sessionUser);
 });
 
-passport.deserializeUser( function(store, callback) {
-  callback(null, store);
+passport.deserializeUser( function(sessionUser, callback) {
+  callback(null, sessionUser);
 });
 
 //===================================================

@@ -1,56 +1,61 @@
 //===================================================
-// Modules
+// External Modules
 //===================================================
-var cors          = require('cors');
-var mongoose      = require('mongoose');
 var express       = require('express');
+var mongoose      = require('mongoose');
 var bodyParser    = require('body-parser');
 var path          = require('path');
 var session       = require('express-session');
 var MongoStore    = require('connect-mongo')(session);
+var cors          = require('cors');
 
 //===================================================
-// Configs
+// Local Modules
 //===================================================
-var db            = require('./config/database');
-var passport      = require('./config/passport')
+var auth          = require("./auth");
+var mongoDB       = require('./mongoDB');
+var router        = require("./router");
 
 //===================================================
-// Routers
+// Config
 //===================================================
-var routesUser    = require('./route/user-routes');
-var routesAuth    = require('./route/auth-routes');
-
+var config      = require('./config/index')
 //===================================================
 // App configuration
 //===================================================
 var port = process.env.PORT || 8080;
-
 var app = express();
 
-db.connect();
+//TODO find out where to put session stuff (does not fill well into confg
+// works better as model, either auth or its own)
+var sessionStore = new MongoStore({
+  mongooseConnection : mongoDB.connection(),
+  ttl: 2*24*60*60
+});
+
+var sessionConfig = {
+  secret : config.session.secret,
+  resave : false,
+  saveUninitialized : false,
+  store: sessionStore
+}
+
+mongoDB.connect();
+
+//app.use(static) TODO place it here , express wil serve cookies if placed later
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
+app.use(session(sessionConfig));
 
-app.use(session({
-    secret : "helloworld", //TODO move securely
-    resave : false,
-    saveUninitialized : false,
-    store: new MongoStore({
-       mongooseConnection : mongoose.connection,
-       ttl: 2*24*60*60
-     })
-}));
-
-app.use(passport.initialize());
-app.use(passport.session());
+app.use(auth.passport.initialize());
+app.use(auth.passport.session());
 
 //===================================================
 // Router Mounting
 //===================================================
-app.use('/api/user', routesUser);
-app.use('/api/auth', routesAuth);
+app.use('/api/user', router.userRoutes);
+app.use('/api/auth', router.authRoutes);
 
 //===================================================
 // Initialization
