@@ -1,10 +1,11 @@
 //===================================================
 // Modules
 //===================================================
+var permissions   = require("./permissions");
 var controller    = require("./controller");
 var middleware    = require("./middleware");
 var passport      = require("./passport");
-var permissions   = require("./permissions");
+
 
 //===================================================
 // Exports
