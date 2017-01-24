@@ -27,7 +27,7 @@ if [ $PROCESS_NUM ]; then
   echo "Mongod is already running"
 else
   echo "No other instances found, setting up a new instance"
-  service mongod start
+  mongod start &
 fi
 
 #Server init

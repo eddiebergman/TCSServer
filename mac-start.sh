@@ -19,7 +19,7 @@ else
     echo "/data/db already exists"
   fi
 fi
-
+#TODO try get file permissions working
 #Mongod init
 PROCESS_NUM=$(pgrep -n mongod)
 echo "Checking if any current instances of mongod are running"
@@ -27,7 +27,7 @@ if [ $PROCESS_NUM ]; then
   echo "Mongod is already running"
 else
   echo "No other instances found, setting up a new instance"
-  mongod start &
+  sudo mongod &
 fi
 
 #Server init
