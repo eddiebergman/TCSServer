@@ -12,14 +12,16 @@ var cors          = require('cors');
 //===================================================
 // Local Modules
 //===================================================
-var auth          = require("./auth");
+var auth          = require('./auth');
 var mongoDB       = require('./mongoDB');
-var router        = require("./router");
+var router        = require('./router');
+var logger        = require('./logger');
 
 //===================================================
 // Config
 //===================================================
-var config      = require('./config/index')
+var config      = require('./config');
+
 //===================================================
 // App configuration
 //===================================================
@@ -51,6 +53,7 @@ app.use(session(sessionConfig));
 app.use(auth.passport.initialize());
 app.use(auth.passport.session());
 
+app.use(logger.middleware.logRequest);
 //===================================================
 // Router Mounting
 //===================================================

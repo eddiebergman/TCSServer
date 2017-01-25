@@ -2,7 +2,7 @@
 // Modules
 //===================================================
 var mongoose    = require('mongoose');
-var config      = require('../config/index');
+var config      = require('../config').mongoDB;
 
 //===================================================
 // Setup
@@ -15,14 +15,14 @@ const connection = mongoose.connection;
 connection.once('open', function(err){
   if(err) throw err;
   //TODO log connection properly
-  console.log(`Connected to -> ${config.mongoDB.uri}`);
+  console.log(`Connected to -> ${config.uri}`);
 })
 
 /**
  * Starts the connection to the mongoDB database
  */
 function connect(){
-  mongoose.connect(`${config.mongoDB.uri}?poolSize=${config.mongoDB.poolSize}`);
+  mongoose.connect(`${config.uri}?poolSize=${config.poolSize}`);
 }
 
 /**

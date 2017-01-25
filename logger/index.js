@@ -1,13 +1,13 @@
 //===================================================
-// Consts
+// Modules
 //===================================================
-const  uri  = 'mongodb://localhost:27017/TCS';
-const  poolSize = 5;
+var winston       = require('./winston');
+var middleware    = require('./middleware');
 
 //===================================================
 // Exports
 //===================================================
 module.exports = {
-  uri : uri,
-  poolSize : poolSize
+  logger : winston,
+  middleware : middleware
 }

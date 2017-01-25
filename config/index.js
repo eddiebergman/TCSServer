@@ -11,13 +11,15 @@ variables that may differ depending on deployment
 //===================================================
 // Modules
 //===================================================
-var mongoDB          = require("./mongoDB-config");
-var session          = require("./session-config");
+var mongoDB          = require('./mongoDB-config');
+var session          = require('./session-config');
+var winston          = require('./winston-config')
 
 //===================================================
 // Exports
 //===================================================
 module.exports = {
   mongoDB : mongoDB,
-  session : session
+  session : session,
+  winston : winston
 }
