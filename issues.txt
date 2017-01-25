@@ -1,0 +1,3 @@
+Auth:
+  1. User logged in -> user removed -> remains logged in
+    need to remove their session as well
