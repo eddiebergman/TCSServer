@@ -37,7 +37,7 @@ passport.use(new LocalStrategy(options, authenticate));
 
 passport.serializeUser( function(user,callback) {
 
-  var sessionUser = {
+  var sessionUser = { //this is what will be put in session storage
     _id : user._id,
     email : user.email,
     username : user.username,

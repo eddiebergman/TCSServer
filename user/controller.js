@@ -69,16 +69,12 @@ function remove(req, res){
 
 
 /**
- * Returns simple single element info of a user based on
- * query string
+ * Returns basic info of a user that can be requested by any non-verified user
  *  HTTP Codes:
- *
+ *    500 : An error as raised during server side ops
+ *    200 : info was successfully retrieved
  */
-function getInfo(req, res){
-
-
-
-
+function getBasicInfo(req, res){
 
 }
 

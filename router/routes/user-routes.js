@@ -1,12 +1,17 @@
 //===================================================
-// Modules
+// Modules ext
 //===================================================
-var router        = require('express').Router();
+var router            = require('express').Router();
+
+//===================================================
+// Modules local
+//===================================================
+var authMiddleware    = require('../../auth').middleware;
 
 //===================================================
 // Corresponding Controller
 //===================================================
-var controller    = require('../../user').controller;
+var controller        = require('../../user').controller;
 
 //===================================================
 // Routes
@@ -41,9 +46,8 @@ router.route('/register')
  *  GET:
  *    Q-String: ?username=1&firstname=0&permission=1
  */
- router.route('/info/:email')
-   .get(controller.getInfo)
-
+ // router.route('/info/basic/:email')
+ //   .get(controller.getBasicInfo)
 //
 // /**
 //  * Changes the email of the logged in user

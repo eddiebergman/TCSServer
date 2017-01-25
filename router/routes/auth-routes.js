@@ -1,7 +1,12 @@
 //===================================================
-// Modules
+// Modules ext
 //===================================================
 var router        = require('express').Router();
+
+//===================================================
+// Modules local
+//===================================================
+var authMiddleware          = require('../../auth').middleware;
 
 //===================================================
 // Corresponding Controller
@@ -29,7 +34,7 @@ var controller   = require('../../auth').controller;
  *  GET:
  */
  router.route('/logout')
-  .get(controller.logout);
+  .get(authMiddleware.isLoggedin, controller.logout);
 
 //===================================================
 // Exports

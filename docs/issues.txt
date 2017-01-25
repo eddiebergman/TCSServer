@@ -1,0 +1,3 @@
+Auth:
+  - "require('./auth')" is seen as an empty object 
+        in user/schema

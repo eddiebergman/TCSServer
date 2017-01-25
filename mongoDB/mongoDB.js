@@ -3,6 +3,7 @@
 //===================================================
 var mongoose    = require('mongoose');
 var config      = require('../config').mongoDB;
+var logger      = require('../logger').logger;
 
 //===================================================
 // Setup
@@ -14,8 +15,7 @@ const connection = mongoose.connection;
  */
 connection.once('open', function(err){
   if(err) throw err;
-  //TODO log connection properly
-  console.log(`Connected to -> ${config.uri}`);
+  logger.log('info', `Connected to -> ${config.uri}`);
 })
 
 /**

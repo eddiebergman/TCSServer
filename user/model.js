@@ -9,7 +9,8 @@ var fs                  = require('fs');
 //===================================================
 // Modules local
 //===================================================
-var UserSchema              = require("./schema");
+var UserSchema              = require('./schema');
+var permissions             = require()
 
 //===================================================
 // functions
@@ -74,7 +75,6 @@ function create(userData, callback){
   }
 
   user.save(function(err, user){
-    //TODO process error here if needed
     callback(err, user)
   });
 
@@ -95,7 +95,7 @@ function destroy(keyValuePair, callback){
   }
 
 
-this.findOneAndRemove(keyValuePair , function(err , result){
+  this.findOneAndRemove(keyValuePair , function(err , result){
       if(err) return callback(err);
       if(!result) return callback(null, "No match found")
       return callback(null, result);

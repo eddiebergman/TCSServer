@@ -25,7 +25,8 @@ function login(req, res){
   function handleAuthentication(err, user, info){
     console.log(err);
     if(err)   return res.set(500).send(err);
-    if(!user) return res.set(404).send("No matching email and password found"); //TODO TEMP 404 and error message
+    //TODO TEMP 404 and error message
+    if(!user) return res.set(404).send("No matching email and password found");
     req.login(user, handleLogin);
   }
 

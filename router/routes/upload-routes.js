@@ -17,7 +17,6 @@ router.route('/user/setProfilePicture')
 .post(isLoggedIn, profilerMulter.single('image') , userController.setProfilePicture);
 
 
-// //TODO not sure on implementation of this
 // router.route('/user/update/:email')
 //   .put(isLoggedIn, isCorrectUser, userController.updateUser);
 //

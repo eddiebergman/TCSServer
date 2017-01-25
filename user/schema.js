@@ -8,7 +8,7 @@ var mongoose = require("mongoose");
 //===================================================
 
 // var permissions = require("../auth").permissions;
-var permissions = { //TODO fix the fact it seems blank when running above code
+const permissions = { //TODO fix the fact it seems blank when running above code
   unverified  : 0,  //Seems to be something to do with load order of the modules
   verified    : 1,
   moderator   : 2,
