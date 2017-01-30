@@ -8,6 +8,7 @@ var path          = require('path');
 var session       = require('express-session');
 var MongoStore    = require('connect-mongo')(session);
 var cors          = require('cors');
+var winston       = require('winston');
 
 //===================================================
 // Config
@@ -19,6 +20,7 @@ var config      = require('./config');
 //===================================================
 var mongodb       = require('./components/mongodb')(config.mongodb);
 var passport      = require('./components/passport');
+var requestLogger = require('./components/request-logger');
 
 //===================================================
 // Routers
@@ -27,7 +29,7 @@ var userRouter    = require('./router/user-routes');
 var authRouter    = require('./router/auth-routes');
 
 //===================================================
-// App configuration
+// App Setup Config
 //===================================================
 var app = express();
 
@@ -43,6 +45,11 @@ var sessionOptions = {
   store: sessionStore
 }
 
+// winston.level = config.winston.logLevel;
+
+//===================================================
+// Middleware mounting
+//===================================================
 //app.use(static) TODO place it here , express wil serve cookies if placed later
 
 app.use(bodyParser.json());
@@ -52,7 +59,7 @@ app.use(session(sessionOptions));
 app.use(passport.initialize());
 app.use(passport.session());
 
-// app.use(logger.middleware.logRequest);
+app.use(requestLogger.basic());
 //===================================================
 // Router Mounting
 //===================================================
