@@ -23,3 +23,8 @@ Todo:
 - Get read/write access to newly created /data and /data/db folders in mac start up script
 
 - Come up with API documentation for implemented paths
+
+
+Long term Todos:
+
+  modularize certain components more, e.g. the auth component
