@@ -25,8 +25,8 @@ var requestLogger = require('./components/request-logger');
 //===================================================
 // Routers
 //===================================================
-var userRouter    = require('./router/user-routes');
-var authRouter    = require('./router/auth-routes');
+var userRouter    = require('./routers/user-routes');
+var authRouter    = require('./routers/auth-routes');
 
 //===================================================
 // App Setup Config
