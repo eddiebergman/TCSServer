@@ -26,7 +26,7 @@ var UserSchema = new Schema({
 
   firstName : {type: String},
   lastName  : {type: String},
-  age       : {type: Number},
+  dob       : {type: Date, required: true},
 
   picURL: {type: String},
 

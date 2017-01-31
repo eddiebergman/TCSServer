@@ -29,9 +29,15 @@ function register(req, res){
       return res.status(400).send("Must provide " + expectedKeys[key]);
   }
 
+  //TODO temp
+  var date = new Date();
+  if(req.body.dob) date = Date.parse(req.body.dob);
+
+
   var user = {
     username          : req.body.username,
     password          : req.body.password,
+    dob               : date, //TODO temp
     email             : req.body.email,
     securityQuestion  : req.body.securityQuestion,
     securityAnswer    : req.body.securityAnswer
@@ -41,6 +47,8 @@ function register(req, res){
 
   function callback(err, user){
     if(err) return res.status(400).send(err.message);
+    //TODO temporary , removeonce dob enforced
+    if(!req.body.dob) return res.status(200).send("ERROR: user was registered but please provide a 'dob' , this will soon be mandatory");
     return res.status(200).json(user);
   }
 
