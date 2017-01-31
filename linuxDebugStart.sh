@@ -1,20 +1,21 @@
 #!/bin/bash
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 #Creating directories
-if [ -d "/data/db" ]; then
+if [ -d ""$DIR"/data/db" ]; then
   echo "/data/db already exists"
 else
-  if [ ! -d "/data" ]; then
+  if [ ! -d ""$DIR"/data" ]; then
     echo "/data directory does not exist"
     echo "creating directory /data"
-    mkdir /data
+    mkdir $DIR/data
   else
     echo "/data directory exists"
   fi
-  if [ ! -d "/data/db" ]; then
+  if [ ! -d ""$DIR"/data/db" ]; then
     echo "/data/db directory does not exist"
     echo "creating of directory /data/db"
-    mkdir /data/db
+    mkdir $DIR/data/db
   else
     echo "/data/db already exists"
   fi
@@ -27,7 +28,7 @@ if [ $PROCESS_NUM ]; then
   echo "Mongod is already running"
 else
   echo "No other instances found, setting up a new instance"
-  sudo service mongod start
+  service mongod --dbpath $DIR/data/db start
 fi
 
 #Server init
