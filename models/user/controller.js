@@ -26,7 +26,7 @@ function register(req, res){
 //TODO make this append them all and then send
   for(var key in expectedKeys){
     if(!req.body.hasOwnProperty(expectedKeys[key]))
-      return res.set(400).send("Must provide " + expectedKeys[key]);
+      return res.status(400).send("Must provide " + expectedKeys[key]);
   }
 
   var user = {
@@ -40,8 +40,8 @@ function register(req, res){
   User.create(user , callback);
 
   function callback(err, user){
-    if(err) return res.set(400).send(err.message);
-    return res.set(200).send(user);
+    if(err) return res.status(400).send(err.message);
+    return res.status(200).json(user);
   }
 
 }
@@ -61,8 +61,8 @@ function remove(req, res){
   //TODO remove the user from session if logged in
 
   function callback(err , message){
-    if(err) return res.set(500).send(err);
-    return res.set(200).send(message);
+    if(err) return res.status(500).send(err);
+    return res.status(200).json(message);
   }
 
 }

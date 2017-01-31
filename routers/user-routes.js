@@ -32,6 +32,7 @@ router.route('/test/remove/:email')
  *    {
  *      username
  *      password
+ *      dob
  *      email
  *      securityQuestion
  *      securityAnswer

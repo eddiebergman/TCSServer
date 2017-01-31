@@ -74,7 +74,7 @@ UserSchema.statics.create = function (userData, callback){
   }
 
   user.save(function(err, user){
-    callback(err, user)
+    return callback(err, user)
   });
 
 }

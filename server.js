@@ -21,6 +21,7 @@ var config      = require('./config');
 var mongodb       = require('./components/mongodb')(config.mongodb);
 var passport      = require('./components/passport');
 var requestLogger = require('./components/request-logger');
+var responseLogger= require('./components/response-logger');
 
 //===================================================
 // Routers
@@ -45,7 +46,8 @@ var sessionOptions = {
   store: sessionStore
 }
 
-// winston.level = config.winston.logLevel;
+winston.level = config.winston.logLevel;
+mongoose.Promise = global.Promise; //gets rid of mongoose warning and uses default Promise library
 
 //===================================================
 // Middleware mounting
@@ -59,6 +61,7 @@ app.use(session(sessionOptions));
 app.use(passport.initialize());
 app.use(passport.session());
 
+app.use(responseLogger.basic(true));
 app.use(requestLogger.basic());
 //===================================================
 // Router Mounting
