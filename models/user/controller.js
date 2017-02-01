@@ -1,4 +1,9 @@
 //===================================================
+// Modules
+//===================================================
+var EventEmitter = require('events').EventEmitter;
+
+//===================================================
 // Models
 //===================================================
 var User            = require('./model');
@@ -8,6 +13,8 @@ var User            = require('./model');
 //===================================================
 
 var controller = {};
+var events = new EventEmitter();
+controller.events = events;
 
 /*
  * Registers a user
@@ -32,9 +39,7 @@ controller.register = function(req, res){
   }
 
   //TODO temp
-  var date = new Date();
-  if(req.body.dob) date = Date.parse(req.body.dob);
-
+  var date = req.body.dob? req.body.dob : Date.parse(req.body.dob);
 
   var user = {
     username          : req.body.username,
@@ -51,7 +56,8 @@ controller.register = function(req, res){
     if(err) return res.status(400).send(err.message);
     //TODO temporary , removeonce dob enforced
     if(!req.body.dob) return res.status(200).send("ERROR: user was registered but please provide a 'dob' , this will soon be mandatory");
-    return res.status(200).json(user);
+    res.status(200).json(user);
+    events.emit('registered', user);
   }
 
 }
