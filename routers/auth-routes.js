@@ -11,7 +11,7 @@ var permissions         = require('../components/permissions');
 //===================================================
 // Controller
 //===================================================
-var controller          = require('../components/auth-controller');
+var controller          = require('../components/controllers/auth-controller');
 
 //===================================================
 // Endpoints

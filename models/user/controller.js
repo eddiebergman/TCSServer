@@ -7,13 +7,15 @@ var User            = require('./model');
 // Endpoints
 //===================================================
 
+var controller = {};
+
 /*
  * Registers a user
  *  HTTP Codes:
  *    400 : malformed JSON body
  *    200 : successfully registered user
  */
-function register(req, res){
+controller.register = function(req, res){
 
   var expectedKeys = [
     'username',
@@ -61,7 +63,7 @@ function register(req, res){
  *    500 : An error was raised during server side ops
  *    200 : user successfully removed
  */
-function remove(req, res){
+controller.remove = function(req, res){
 
   var emailValue = req.params.email;
   User.destroy({ 'email' : emailValue }, callback);
@@ -79,7 +81,4 @@ function remove(req, res){
 //===================================================
 // Exports
 //===================================================
-module.exports = {
-  register  : register,
-  remove    : remove,
-}
+module.exports = controller;

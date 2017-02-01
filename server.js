@@ -28,6 +28,7 @@ var responseLogger= require('./components/response-logger');
 //===================================================
 var userRouter    = require('./routers/user-routes');
 var authRouter    = require('./routers/auth-routes');
+var recoveryRouter= require('./routers/recovery-routes');
 
 //===================================================
 // App Setup Config
@@ -68,6 +69,7 @@ app.use(requestLogger.basic());
 //===================================================
 app.use('/api/user', userRouter);
 app.use('/api/auth', authRouter);
+app.use('/api/recovery', recoveryRouter);
 
 //===================================================
 // Initialization

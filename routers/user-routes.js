@@ -1,17 +1,17 @@
 //===================================================
 // Modules
 //===================================================
-var router            = require('express').Router();
+var router              = require('express').Router();
 
 //===================================================
 // Components
 //===================================================
-var permissions    = require('../components/permissions');
+var permissions         = require('../components/permissions');
 
 //===================================================
 // Controlles
 //===================================================
-var controller        = require('../models/user/controller');
+var controller          = require('../models/user/controller');
 
 //===================================================
 // Routes

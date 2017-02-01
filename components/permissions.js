@@ -1,3 +1,8 @@
+//===================================================
+// Resources
+//===================================================
+var levels            = require('../resources/permission-levels')
+
 //==================================================
 // Setup
 //===================================================
@@ -5,15 +10,9 @@
 var permissions = {};
 
 /**
- * The different permission levels administered to users
+ * Attacahing permission levels which are described in 'resources/permission-levels'
  */
-permissions.levels = {
-  unverified  : 0,
-  verified    : 1,
-  moderator   : 2,
-  admin       : 3
-}
-
+permissions.levels = levels;
 
 /**
  * Function desc.
