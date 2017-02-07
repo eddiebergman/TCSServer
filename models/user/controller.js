@@ -124,6 +124,22 @@ controller.setPicture = function(req, res){
   }
 }
 
+controller.getFriendRequests = function(req, res){
+  return res.send("WIP");
+}
+
+controller.sendFriendRequest = function(req, res){
+  return res.send("WIP");
+}
+
+controller.getPendingFriendRequests = function(req,res){
+  return res.send("WIP");
+}
+
+controller.respondToFriendRequest = function(req, res){
+  return res.send("WIP");
+}
+
 
 
 //===================================================
