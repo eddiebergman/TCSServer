@@ -22,7 +22,7 @@ var mongodb       = require('./components/mongodb')(config.mongodb);
 var passport      = require('./components/passport');
 var requestLogger = require('./components/request-logger');
 var responseLogger= require('./components/response-logger');
-// var mailer       = require('./components/mailer')(config.mailer);
+var mailer        = require('./components/mailer')(config.mailer);
 
 //===================================================
 // Routers

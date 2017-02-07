@@ -9,37 +9,35 @@ var _                   = require('underscore');
 //===================================================
 var responseLogger = {};
 
-responseLogger.basic = function(auto){
+responseLogger.basic = function(){
 
   return function(req, res, next){
 
-    function logResponseHeaders(object){
+    var oldEnd = res.end;
 
-      var body = (!object || _.isEmpty(object))? "" : "Body:\t"+ object;
+    res.end = function (chunk) {
+      var body = chunk? "Body:\t" + chunk.toString('utf8') : "";
+      logResponseHeaders(body)
+      oldEnd.apply(res, arguments);
+    };
 
-      winston.log('debug', `
-=Response=============================================
-\t\tPath:\t${res.req.method} - ${res.req.originalUrl}
-\t\tSource:\t${req.ip}
-\t\tStatus:\t${res.statusCode} : ${res.statusMessage}
-\t\tHeaders:\t${JSON.stringify(res._headers)}
-\t\t${body}
-`);
-
-    }
-
-    res.log = logResponseHeaders;
-
-    if(auto){
-      res.oldSend = res.send;
-      res.send = function(object){
-        res.oldSend(object);
-        res.log(object);
-      }
-    }
     return next();
 
+    function logResponseHeaders(body){
+
+      winston.log('debug', `
+      =Response=============================================
+      \t\tPath:\t${res.req.method} - ${res.req.originalUrl}
+      \t\tSource:\t${req.ip}
+      \t\tStatus:\t${res.statusCode} : ${res.statusMessage}
+      \t\tHeaders:\t${JSON.stringify(res._headers)}
+      \t\t${body}
+      `);
+    }
+
   }
+
+
 
 }
 

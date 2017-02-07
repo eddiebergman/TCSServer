@@ -28,7 +28,7 @@ if [ $PROCESS_NUM ]; then
   echo "Mongod is already running"
 else
   echo "No other instances found, setting up a new instance"
-  mongod --dbpath $DIR/data/db &
+  xterm -e mongod --dbpath $DIR/data/db &
 fi
 
 #Server init

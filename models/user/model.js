@@ -79,7 +79,6 @@ UserSchema.statics.create = function (userData, callback){
 
 }
 
-
 /**
  * Deletes a user from the database by the given keyValuePair
  * Params:

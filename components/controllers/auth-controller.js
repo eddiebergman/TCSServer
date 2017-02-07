@@ -17,24 +17,26 @@ var controller = {};
  */
 controller.login = function (req, res){
 
+  if(req.isAuthenticated()){
+    return res.status(200).send("You have are already logged in");
+  }
+  passport.authenticate('local', authenticateCallback)(req, res);
+
+
   //handles authenticate callback
   function authenticateCallback(err, user, info){
     if(err)   return res.status(500).send(err);
     if(!user) return res.status(404).send("No matching email and password found");
     req.login(user, loginCallback);
+
+    //handles login callback
+    function loginCallback(err){
+      if(err) return res.status(500).send(err);
+      return res.status(200).send(user._id);
+    }
+
   }
 
-  //handles login callback
-  function loginCallback(err){
-    if(err) return res.status(500).send(err);
-    return res.status(200).send("Login succesfull");
-  }
-
-  if(req.isAuthenticated()){
-    return res.status(200).send("You have are already logged in");
-  }
-
-  passport.authenticate('local', authenticateCallback)(req, res);
 
 }
 

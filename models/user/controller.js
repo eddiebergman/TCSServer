@@ -2,11 +2,18 @@
 // Modules
 //===================================================
 var EventEmitter = require('events').EventEmitter;
+var path         = require('path');
+var fs           = require('fs');
+
+//===================================================
+// Config
+//===================================================
+var config       = require('../../config');
 
 //===================================================
 // Models
 //===================================================
-var User            = require('./model');
+var User         = require('./model');
 
 //===================================================
 // Endpoints
@@ -56,7 +63,7 @@ controller.register = function(req, res){
     if(err) return res.status(400).send(err.message);
     //TODO temporary , removeonce dob enforced
     if(!req.body.dob) return res.status(200).send("ERROR: user was registered but please provide a 'dob' , this will soon be mandatory");
-    res.status(200).json(user);
+    res.status(200).send(user)
     events.emit('registered', user);
   }
 
@@ -82,6 +89,41 @@ controller.remove = function(req, res){
   }
 
 }
+
+controller.getPicture = function(req, res){
+  User.findById(req.params.userid)
+    .exec(callback);
+
+  function callback(err, user){
+    if(err) return res.send(err);
+    if(!user) return res.send("No user");
+
+    return res.sendFile(path.join(config.core.IMAGE_DIR, user.picURL));
+
+  }
+}
+
+controller.setPicture = function(req, res){
+  User.findById(req.user._id)
+    .exec(callback);
+
+  function callback(err, user){
+    if(err) return res.send(err);
+    if(!user) return res.send("No user");
+
+    var filename = user.id + path.extname(req.file.originalname);
+
+    fs.rename(req.file.path, config.core.IMAGE_DIR + filename, function(err){
+      if(err) return res.send(err);
+      user.picURL = filename;
+      user.save( function(err ,resp){
+        if(err) return res.send(err);
+        return res.send(resp);
+      });
+    });
+  }
+}
+
 
 
 //===================================================
