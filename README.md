@@ -1,5 +1,4 @@
-# Permanantly on hold
-
+# On hold until for the forseeable future
 # TCSNode
 
 A repo specifically for the development of TCS API<br>
