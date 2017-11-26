@@ -1,4 +1,4 @@
-# On hold until for the forseeable future
+# On hold for the forseeable future
 # TCSNode
 
 A repo specifically for the development of TCS API<br>
@@ -35,7 +35,7 @@ The folder layour for the project is as such:
       | ...
       | ...
       
-+--routers
++--routersreflection of meaning
       |user-routes.js
       |auth-routes.js
      
